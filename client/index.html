@@ -1,0 +1,212 @@
+<!doctype html5>
+<html>
+  <head>
+	  <script src="../js/zepto.min.js"></script>
+    <title>Колонисты: Возрождение</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width; minimum-scale=1; maximum-scale=1"/>
+
+    <style>
+    body {
+    background: #000;
+    max-width: 800px;
+		margin: auto;
+    position: relative;
+    }
+    div[hero] {
+    width: 65px;
+    height: 180px;
+		background: url(http://furious-corpses.github.io/client/s.png);
+		margin: auto;
+		position: relative;
+		top:110px;
+		z-index:100;
+		overflow:visible;
+	}
+    div[bg] {
+    background: #000;
+    max-width: 800px;
+    height: 400px;
+    background: radial-gradient(#000,#0af);
+    overflow: hidden;
+    margin: auto;
+    position: relative;
+    top: -32px;
+    }
+    #hp1{
+		width: 20%;
+		height: 12px;
+		background: #fff;
+		border: 1px solid #000;
+		z-index: 1000001;
+		position: absolute;
+		bottom: -6px;
+		border-radius: 8px;
+		overflow: hidden;
+		left: 25px;
+	}
+	#hp2{
+		width: 100%;
+		height: 12px;
+		background: #f00;
+		z-index: 1000002;
+	}
+    #mp1{
+		width: 20%;
+		height: 12px;
+		background: #fff;
+		border: 1px solid #000;
+		z-index: 1000001;
+		position: absolute;
+		bottom: -6px;
+		border-radius: 8px;
+		overflow: hidden;
+		right: 25px;
+	}   
+	#mp2{
+		width: 100%;
+		height: 12px;
+		background: #0af;
+		z-index: 1000002;
+	}    
+    e {
+    width: 128px;
+    height: 84px;
+    overflow: hidden;
+    display:block;
+    position: absolute;
+z-index:1;
+   #box-shadow: inset 0px 0px 5px #000;
+    }
+    e[grass]{
+    background: url(http://furious-corpses.github.io/client/1.png);
+    }
+    e[sand]{
+    background: url(http://furious-corpses.github.io/client/2.png);
+    }
+    #mapcak{
+		width: 100%;
+		height:100%;
+		position: absolute;
+		z-index:1000;
+	}
+	div[tok]{
+		width:50%;
+		height:50%;
+		position: absolute;
+	}
+	#ton {
+		top:0px;
+		left:0px;
+	}
+	#tos {
+		bottom:0px;
+		right:0px;
+	}
+	#tow {
+		top:50%;
+		left:0px;
+	}
+	#toe {
+		top:0px;
+		right:0;
+	}
+	#panel1 {
+		width: 90%;
+		height: 32px;
+		background: #111;
+		border-radius: 0 0 25px 25px;
+		position: absolute;
+		top: 0;
+		left: 5%;
+		z-index: 100000;
+		position: relative;
+	}
+	#heroname {
+		font-size: 22px;
+		position: absolute;
+		color: #fff;
+		bottom: 5px;
+		left: 25px;
+		display: inline;
+	}
+	#icons {
+		display: block;
+		margin: auto;
+		width: 204px;
+		z-index: 1000002;
+	}
+	#icons img[j] {
+	margin-left: 6px;	
+	}
+    </style>
+  </head>
+  <body>
+
+  
+  
+<div id="panel1"><div id="heroname"></div><div id="hp1"><div id="hp2"></div></div><div id="mp1"><div id="mp2"></div></div><div id="icons"><img src="http://furious-corpses.github.io/client/img/ic/male.png" j onclick="openHero();" width=28><img src="http://furious-corpses.github.io/client/img/ic/group.png" j onclick="openGroup();" width=28><img src="http://furious-corpses.github.io/client/img/ic/bag.png" j onclick="openBag();" width=28><img src="http://furious-corpses.github.io/client/img/ic/mail.png" j onclick="openMail();" width=28><img src="http://furious-corpses.github.io/client/img/ic/chat.png" j onclick="openChat();" width=28><img src="http://furious-corpses.github.io/client/img/ic/menu.png"  onclick="openMenu();" width=28 ></div></div>
+  <div bg id="bg"></div>
+  <script>
+function legends(a, z) {var num=(Math.floor(Math.random() * (a - z)) + z); return num;}
+mp = new Array(
+[0,0,0,0,0,1,0,0,0],
+[0,0,0,0,0,1,0,0,0],
+[0,0,0,0,0,1,1,1,0],
+[0,0,0,0,0,0,0,1,0],
+[1,1,1,1,1,1,0,1,0],
+[0,1,0,0,0,1,0,1,1],
+[0,1,0,0,0,1,1,1,0],
+[0,1,0,0,0,0,0,0,0],
+[0,1,0,0,0,0,0,0,0]);
+bg = document.getElementById('bg');
+rnd = new Array('grass','sand');
+for(i=0;i<=8;i++){
+for(q=0;q<=8;q++){
+bg.innerHTML+='<e '+rnd[mp[i][q]]+' a="'+rnd[mp[i][q]]+'"></e>';
+
+
+}
+}
+/*
+
+e = document.getElementsByTagName('e');
+dev = 1;
+st = 1;
+x = 128;
+y = 84;
+p = 10;
+starty = 130-y
+startx = -130-x;
+endy = starty;
+endx = startx;
+for(i=0;i<=80;i++){
+type = e[i].getAttribute('a');//type
+if(dev==1){endy = endy + y/2-p;
+e[i].style.top=endy;
+endx = endx + x/2;
+e[i].style.left=endx;
+}else{
+endr=endy+(y/2);
+endt=endx-(x/2);
+
+endr -= (y/2)*dev-(dev*p-p);
+
+e[i].style.top=endr;
+endt += x/2*dev;
+e[i].style.left=endt;
+}
+e[i].style.zIndex=(10-dev)*st;
+if(dev==9){st++;dev=1;}else
+dev++;
+
+
+}
+*/
+
+
+</script>
+<script src="cl.js"></script>
+
+  </body>
+</html>
